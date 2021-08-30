@@ -62,3 +62,30 @@ quicksort (x:xs) =
     let smallerSorted = quicksort [a | a <- xs, a <= x]
         biggerSorted = quicksort [a | a <- xs, a > x]
     in smallerSorted ++ [x] ++ biggerSorted
+
+
+-- create a function that removes all duplicates from a given list 
+nub :: (Eq a) => [a] -> [a] 
+nub [] = [] 
+nub (x:xs)
+    -- this uses the infix version of elem' but you could right 
+    -- elem x xs -- and it would be the same using the prefix
+    | x `elem'` xs = nub xs 
+    | otherwise    = x : nub xs
+
+-- create a function isAsc that returns True fit eh list given 
+-- is in ascending order 
+isAsc :: [Int] -> Bool
+isAsc [] = True  
+isAsc [x] = True 
+isAsc (x:y:xs) = (x <= y) && isAsc (y:xs)
+
+-- create a function hasPath that determines if a path from one node 
+-- to another exists within a directed graph 
+hasPath :: [(Int,Int)] -> Int -> Int -> Bool 
+hasPath [] x y = x == y
+hasPath xs x y 
+    | x == y    = True 
+    | otherwise = 
+        let xs' = [ (n,m) | (n,m) <- xs, n /= x ] in
+            or [ hasPath xs' m y | (n,m ) <- xs, n == x ]
