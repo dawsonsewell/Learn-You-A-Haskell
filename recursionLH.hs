@@ -48,6 +48,13 @@ elem' a (x:xs)
     | a == x = True 
     | otherwise = a `elem'` xs 
 
+-- another way to do elem'
+-- _ is a wild card that does not matter what is put their 
+elem'' _ [] = False 
+-- || is a boolean OR 
+elem'' e (x:xs) = (e == x) || (elem e xs)
+
+
 quicksort :: (Ord a) => [a] -> [a]
 
 quicksort [] = [] 
