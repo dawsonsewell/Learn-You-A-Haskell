@@ -1,54 +1,54 @@
-multThree :: (Num a) => a -> a -> a -> a
-multThree x y z = x * y * z 
+-- multThree :: (Num a) => a -> a -> a -> a
+-- multThree x y z = x * y * z 
 
-compareWithHundred :: (Num a, Ord a) => a -> Ordering 
--- compareWithHundred x = compare 100 x 
--- a better way to right this is 
-compareWithHundred = compare 100 
+-- compareWithHundred :: (Num a, Ord a) => a -> Ordering 
+-- -- compareWithHundred x = compare 100 x 
+-- -- a better way to right this is 
+-- compareWithHundred = compare 100 
 
-divideByTen :: (Floating a) => a -> a 
-divideByTen = (/10)
--- calling divideByTen 200 is equivalent to doing 200 / 10, 
--- as is also (/10) 200
+-- divideByTen :: (Floating a) => a -> a 
+-- divideByTen = (/10)
+-- -- calling divideByTen 200 is equivalent to doing 200 / 10, 
+-- -- as is also (/10) 200
 
--- a funciton that checks if a supplied character is an upper case letter 
-isUpperAlphanum :: Char -> Bool 
-isUpperAlphanum = (`elem` ['A'..'Z'])
-
-
-applyTwice :: (a -> a) -> a -> a 
-applyTwice f x = f (f x) 
+-- -- a funciton that checks if a supplied character is an upper case letter 
+-- isUpperAlphanum :: Char -> Bool 
+-- isUpperAlphanum = (`elem` ['A'..'Z'])
 
 
-zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
-zipWith' _ [] _ = [] 
-zipWith' _ _ [] = [] 
-zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
+-- applyTwice :: (a -> a) -> a -> a 
+-- applyTwice f x = f (f x) 
 
 
-flip' :: (a -> b -> c) -> b -> a -> c
-flip' f y x = f x y 
+-- zipWith' :: (a -> b -> c) -> [a] -> [b] -> [c]
+-- zipWith' _ [] _ = [] 
+-- zipWith' _ _ [] = [] 
+-- zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 
 
-map :: (a -> b) -> [a] -> [b]
-map _ [] = [] 
-map f (x:xs) = f x : map f fx
--- implement the map function with a right fold 
-map' (a -> b) -> [a] -> [b]
-map ' f xs = foldr (\x acc -> f x : acc) [] xs
+-- flip' :: (a -> b -> c) -> b -> a -> c
+-- flip' f y x = f x y 
 
 
-filter :: (a -> Bool) -> [a] -> [a]
-filter _ [] = [] 
-filter p (x:xs)
-    | p x       = x : filter p xs 
-    | otherwise = filter p xs 
+-- -- map :: (a -> b) -> [a] -> [b]
+-- -- map _ [] = [] 
+-- -- map f (x:xs) = f x : map f fx
+-- -- implement the map function with a right fold 
+-- -- map' (a -> b) -> [a] -> [b]
+-- -- map ' f xs = foldr (\x acc -> f x : acc) [] xs
+
+
+-- filter :: (a -> Bool) -> [a] -> [a]
+-- filter _ [] = [] 
+-- filter p (x:xs)
+--     | p x       = x : filter p xs 
+--     | otherwise = filter p xs 
 
 
 
-largestDivisible :: (integral a) => a 
-largestDivisible = head (filter p [100000, 99999..])
-    where p x = x `mod` 3829 == 0 
+-- largestDivisible :: (integral a) => a 
+-- largestDivisible = head (filter p [100000, 99999..])
+--     where p x = x `mod` 3829 == 0 
 
 
 chain :: (Integral a) => a -> [a]
@@ -86,7 +86,7 @@ maximum' :: (Ord a) => [a] -> a
 maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 
 reverse' :: [a] -> [a] 
-reverse' = foldl (\acc c -> x : acc) [] 
+reverse' = foldl (\acc x -> x : acc) [] 
 
 product' :: (Num a) => [a] -> a 
 product' = foldr1 (*)
@@ -98,4 +98,17 @@ head' :: [a] -> a
 head' = foldr1 (\x _ -> x)
 
 last' :: [a] -> a 
-last' = foldl1 (\_ -> x)
+last' = foldl1 (\_ x -> x)
+
+
+sqrtSums :: Int 
+sqrtSums = length (takeWhile (<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+
+
+($) :: (a -> b) -> a -> b 
+f $ x = f x 
+
+
+(.) :: (b -> c) -> (a -> b) -> a -> c 
+f . g = \x -> f (g x) 
