@@ -87,6 +87,8 @@ maximum' = foldr1 (\x acc -> if x > acc then x else acc)
 
 reverse' :: [a] -> [a] 
 reverse' = foldl (\acc x -> x : acc) [] 
+-- can also be written as 
+-- reverse' = foldl (flip (:)) []
 
 product' :: (Num a) => [a] -> a 
 product' = foldr1 (*)
@@ -112,3 +114,7 @@ f $ x = f x
 
 (.) :: (b -> c) -> (a -> b) -> a -> c 
 f . g = \x -> f (g x) 
+
+-- create a function prefixes that returns all the prefixes of a given list 
+prefixes :: [a] -> [[a]]
+prifixes = foldr (\x acc -> [x] : (map ((:) x) acc)) []
